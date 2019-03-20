@@ -9,7 +9,7 @@ action "push" {
     ACTION_MAIL = "ludeeus@gmail.com"
     ACTION_NAME = "ludeeus"
     ACTION_MESSAGE = "Action commit"
-    ACTION_BRANCH = "new-test-branch"
+    ACTION_BRANCH = "test-branch"
   }
   secrets = ["GITHUB_TOKEN"]
 }
