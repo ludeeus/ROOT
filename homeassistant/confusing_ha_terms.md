@@ -9,7 +9,7 @@ _Let's start with an easy one._
 Home Assistant is the automation platform (software) that we all run.
 This is where you have your integrations, do automations and create awesome Lovelace views.
 
-Some popular abbrivations of Home Assistant:
+Some popular abbrevations of Home Assistant:
 
 - **H**ome **A**ssistant (HA)
 - **H**ome **Ass**istant (Hass)
@@ -34,18 +34,18 @@ When you use one of the Hassio installers (HassOS/Generic linux) you get a set o
 
 **Some key aspects:**
 
-- _Every_ Hassio installation uses docker.
+- _Every_ Hassio installation uses Docker.
 - Hassio can be installed on _any_ linux OS.
 - Hassio does not have automations
 - Hassio does not have integrations
-. The Add-on store is _only_ aviable _if_ you installed Home Assistant with Hassio.
+. The add-on store is _only_ available _if_ you installed Home Assistant with Hassio.
 
 [More information about Hassio](https://www.home-assistant.io/hassio/)
 
 ## HassOS
 
-HassOS is a OS based on buildroot, that ships with Hassio (and therfor also Home Assistant).
+HassOS is a OS based on buildroot, that ships with Hassio (and therefore also Home Assistant).
 
 [More information about HassOS](https://github.com/home-assistant/hassos)
 
-There are images aviable for many boards, as well as hypervisors.
+There are images available for many boards, as well as hypervisors.
