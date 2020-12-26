@@ -1,0 +1,10 @@
+change-template: '- #$NUMBER $TITLE @$AUTHOR'
+sort-direction: ascending
+categories:
+  - title: 'Item1'
+    label: 'test'
+
+  - title: 'Item1'
+    label: 'test'
+template: |
+  $CHANGES
