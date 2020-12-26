@@ -2,9 +2,12 @@ change-template: '- #$NUMBER $TITLE @$AUTHOR'
 sort-direction: ascending
 categories:
   - title: 'Item1'
-    label: 'test'
+    labels: 
+      - 'test'
 
   - title: 'Item1'
-    label: 'test'
+    labels:
+      - 'test'
+      - 'test2'
 template: |
   $CHANGES
