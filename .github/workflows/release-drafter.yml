@@ -62,3 +62,8 @@ jobs:
             }
 
             console.log(status, conclusion);
+            if (conclution !== "success") {
+              core.setFailed(conclution);
+            }
+
+      - run: echo $GITHUB_SHA
