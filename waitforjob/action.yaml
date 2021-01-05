@@ -25,9 +25,10 @@ runs:
         conclusion="";
         status="";
 
-        while [ "$status" == "completed" ] || [ "$retries" -gt ${{inputs.retry-limit}} ]; do 
+        while [ "$status" != "completed" ] || [ $retries -gt ${{inputs.retry-limit}} ]; do 
           result=$(curl -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{inputs.github-token}}" https://api.github.com/repos/ludeeus/ROOT/commits/6ff53563050c7b9355e16b39005d7a50303da9c6/check-runs | jq .)
           echo $result
 
           sleep ${{inputs.timeout}}
+          retries=$(( $retries + 1 ))
         done
