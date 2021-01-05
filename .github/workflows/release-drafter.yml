@@ -50,6 +50,6 @@ jobs:
               repo: 'ROOT',
               ref: '${{github.sha}}'
             });
-            console.dir(res);
-            conclusion = res.data.check_runs.find((res) => res.name = target).conclusion
+            console.dir(res.data.check_runs);
+            conclusion = res.data.check_runs.map((res) =>  {return {name: res, status: res.status, conclusion: res.conclusion}})
             console.log(conclusion);
