@@ -17,5 +17,17 @@ inputs:
     default: ${{ github.token }}
     required: false
 runs:
-  using: 'node12'
-  main: 'index.js'
+  using: "composite"
+  steps: 
+    - shell: bash
+      run: |
+        retries=0
+        conclusion="";
+        status="";
+
+        while [ "$status" == "completed" ] || [ "$retries" -gt ${{inpts.retry-limit}} ]; do 
+          result=$(curl -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{inpts.github-token}}" https://api.github.com/repos/ludeeus/ROOT/commits/6ff53563050c7b9355e16b39005d7a50303da9c6/check-runs | jq .)
+          echo $result
+
+          sleep ${{inpts.timeout}}
+        done
