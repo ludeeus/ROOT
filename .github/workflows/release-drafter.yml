@@ -43,20 +43,22 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            function timeout(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
             const target = "job1";
             let conclusion;
             let status;
             while (status !== "completed") {
-              setTimeout(async () => { 
-                const res = await github.request('GET /repos/{owner}/{repo}/commits/{ref}/check-runs', {
-                  owner: 'ludeeus',
-                  repo: 'ROOT',
-                  ref: '${{github.sha}}'
-                });
-                console.dir(res.data.check_runs);
-                conclusion = res.data.check_runs.find((res) => res.name = target).conclusion;
-                status = res.data.check_runs.find((res) => res.name = target).status;  
-              }, 5000);
+              await timeout(5000)
+              const res = await github.request('GET /repos/{owner}/{repo}/commits/{ref}/check-runs', {
+                owner: 'ludeeus',
+                repo: 'ROOT',
+                ref: '${{github.sha}}'
+              });
+              console.dir(res.data.check_runs);
+              conclusion = res.data.check_runs.find((res) => res.name = target).conclusion;
+              status = res.data.check_runs.find((res) => res.name = target).status;  
             }
 
             console.log(status, conclusion);
