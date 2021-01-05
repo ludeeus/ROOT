@@ -34,7 +34,7 @@ runs:
           echo $retries
           echo ${{inputs.retry-limit}}
 
-          if [ "$status" == "completed" ] || [ $retries -gt ${{inputs.retry-limit}} ]; then
+          if [ "$status" != "completed" ] || [ $retries -gt ${{inputs.retry-limit}} ]; then
             break
           else
             sleep ${{inputs.timeout}}
