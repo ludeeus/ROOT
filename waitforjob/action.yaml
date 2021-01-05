@@ -21,7 +21,7 @@ runs:
   steps: 
     - shell: bash
       run: |
-        retries=0
+        retries=1
         conclusion="";
         status="";
 
@@ -29,12 +29,12 @@ runs:
           result=$(curl -sSL -f https://api.github.com/repos/ludeeus/ROOT/commits/6ff53563050c7b9355e16b39005d7a50303da9c6/check-runs | jq --arg test ${{inputs.job}} '[.check_runs | .[] |select(.name | contains($test))][0]')
           conclusion=$(echo $result | jq -r .conclusion)
           status=$(echo $result | jq -r .status)
-          echo $conclusion
-          echo $status
-          echo $retries
-          echo ${{inputs.retry-limit}}
+          echo "Try: $retries/${{inputs.retry-limit}}"
+          echo "Status: $status"
+          echo "Conclusion: $conclusion"
+          echo
 
-          if [ "$status" != "completed" ] || [ $retries -gt ${{inputs.retry-limit}} ]; then
+          if [ "$status" != "completed" ] || [ "$retries" == "${{inputs.retry-limit}}" ]; then
             break
           else
             sleep ${{inputs.timeout}}
