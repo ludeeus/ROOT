@@ -11,7 +11,7 @@ inputs:
   retry-limit:
     description: 'number of maximum retries'
     required: false
-    default: '100'
+    default: '3'
   github-token:
     description: The GitHub token used to create an authenticated client
     default: ${{ github.token }}
@@ -26,7 +26,7 @@ runs:
         status="";
 
         while [ "$status" != "completed" ] || [ $retries -gt ${{inputs.retry-limit}} ]; do 
-          result=$(curl -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{inputs.github-token}}" https://api.github.com/repos/ludeeus/ROOT/commits/6ff53563050c7b9355e16b39005d7a50303da9c6/check-runs | jq .)
+          result=$(curl -sSL -f https://api.github.com/repos/ludeeus/ROOT/commits/6ff53563050c7b9355e16b39005d7a50303da9c6/check-runs | jq --arg test ${{inputs.job}} '[.check_runs | .[] |select(.name | contains($test))][0]')
           echo $result
 
           sleep ${{inputs.timeout}}
