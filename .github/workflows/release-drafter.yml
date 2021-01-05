@@ -27,5 +27,5 @@ jobs:
               ref: '${{github.sha}}'
             });
             console.log(res);
-            conclusion = res.data.check_runs.find((res) => res.name = $target).conclusion
+            conclusion = res.data.check_runs.find((res) => res.name = target).conclusion
             console.log(conclusion);
