@@ -1,0 +1,17 @@
+name: 'waitforjob'
+description: 'Wait for a job to finish'
+inputs:
+  job:
+    description: 'The name of the job to wait for'
+    required: true
+  timeout:
+    description: 'number of milliseconds to wait between retries'
+    required: false
+    default: '5000'
+  retry-limit:
+    description: 'number of maximum retries'
+    required: false
+    default: '100'
+runs:
+  using: 'node15'
+  main: 'index.js'
