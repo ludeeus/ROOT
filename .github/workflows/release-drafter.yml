@@ -18,10 +18,10 @@ jobs:
       - uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
-        run: |
-          const res = await octokit.request('GET /repos/{owner}/{repo}/commits/{ref}/status', {
-            owner: 'octocat',
-            repo: 'hello-world',
-            ref: '${{GITHUB_SHA}}'
-          })
-          console.log(res)
+          script: |
+            const res = await octokit.request('GET /repos/{owner}/{repo}/commits/{ref}/status', {
+              owner: 'octocat',
+              repo: 'hello-world',
+              ref: '${{GITHUB_SHA}}'
+            })
+            console.log(res)
