@@ -3,15 +3,13 @@ name: Release Drafter
 on:
   push:
     branches:
-      - master
-  pull_request:
-    branches:
-      - master
+      - test3
 
 jobs:
   update_release_draft:
     runs-on: ubuntu-latest
     steps:
-      - uses: release-drafter/release-drafter@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+
+      - run: printenv
