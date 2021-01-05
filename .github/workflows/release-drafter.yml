@@ -19,7 +19,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const res = await github.request('GET /repos/{owner}/{repo}/commits/{ref}/status', {
+            const res = await github.request('GET /repos/{owner}/{repo}/commits/{ref}/statuses', {
               owner: 'octocat',
               repo: 'hello-world',
               ref: '${{github.sha}}'
