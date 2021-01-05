@@ -47,15 +47,16 @@ jobs:
             let conclusion;
             let status;
             while (status !== "completed") {
-              const res = await github.request('GET /repos/{owner}/{repo}/commits/{ref}/check-runs', {
-                owner: 'ludeeus',
-                repo: 'ROOT',
-                ref: '${{github.sha}}'
-              });
-              console.dir(res.data.check_runs);
-              conclusion = res.data.check_runs.find((res) => res.name = target).conclusion
-              status = res.data.check_runs.find((res) => res.name = target).status
-              setTimeout(() => { console.log("Waiting"); }, 5000);
+              setTimeout(() => { 
+                const res = await github.request('GET /repos/{owner}/{repo}/commits/{ref}/check-runs', {
+                  owner: 'ludeeus',
+                  repo: 'ROOT',
+                  ref: '${{github.sha}}'
+                });
+                console.dir(res.data.check_runs);
+                conclusion = res.data.check_runs.find((res) => res.name = target).conclusion;
+                status = res.data.check_runs.find((res) => res.name = target).status;  
+              }, 5000);
             }
 
             console.log(status, conclusion);
