@@ -7,11 +7,11 @@ inputs:
   timeout:
     description: 'number of milliseconds to wait between retries'
     required: false
-    default: '5000'
+    default: 5000
   retry-limit:
     description: 'number of maximum retries'
     required: false
-    default: '3'
+    default: 3
   github-token:
     description: The GitHub token used to create an authenticated client
     default: ${{ github.token }}
@@ -28,7 +28,13 @@ runs:
         while [ "$status" != "completed" ] || [ $retries -gt ${{inputs.retry-limit}} ]; do 
           result=$(curl -sSL -f https://api.github.com/repos/ludeeus/ROOT/commits/6ff53563050c7b9355e16b39005d7a50303da9c6/check-runs | jq --arg test ${{inputs.job}} '[.check_runs | .[] |select(.name | contains($test))][0]')
           echo $result
+          conclusion=$(echo $result | jq .conclusion)
+          status=$(echo $result | jq .status)
 
           sleep ${{inputs.timeout}}
           retries=$(( $retries + 1 ))
         done
+
+        if [ "$status" != "completed" ]; then
+          exit 1
+        fi
