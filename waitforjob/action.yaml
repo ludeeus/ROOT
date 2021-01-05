@@ -27,9 +27,16 @@ runs:
 
         while [ "$status" != "completed" ] || [ $retries -gt ${{inputs.retry-limit}} ]; do 
           result=$(curl -sSL -f https://api.github.com/repos/ludeeus/ROOT/commits/6ff53563050c7b9355e16b39005d7a50303da9c6/check-runs | jq --arg test ${{inputs.job}} '[.check_runs | .[] |select(.name | contains($test))][0]')
-          echo $result
           conclusion=$(echo $result | jq .conclusion)
           status=$(echo $result | jq .status)
+          echo $conclusion
+          echo $status
+          echo $retries
+          echo ${{inputs.retry-limit}}
+
+          if [ "$status" == "completed" ] || [ $retries -gt ${{inputs.retry-limit}} ]; then
+            break
+          fi
 
           sleep ${{inputs.timeout}}
           retries=$(( $retries + 1 ))
