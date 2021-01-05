@@ -42,7 +42,7 @@ jobs:
       - uses: actions/github-script@v3
         name: Wait for "job2" in "Workflow 2"
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{github.token}}
           script: |
             function timeout(ms) {
                 return new Promise(resolve => setTimeout(resolve, ms));
