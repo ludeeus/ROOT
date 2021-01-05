@@ -6,7 +6,7 @@ on:
       - test3
 
 jobs:
-  job1:
+  job3:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -30,7 +30,7 @@ jobs:
             conclusion = res.data.check_runs.find((res) => res.name = target).conclusion
             console.log(conclusion);
 
-  job2:
+  job4:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
@@ -56,7 +56,6 @@ jobs:
                 repo: 'ROOT',
                 ref: '${{github.sha}}'
               });
-              console.dir(res.data.check_runs);
               conclusion = res.data.check_runs.find((res) => res.name = target).conclusion;
               status = res.data.check_runs.find((res) => res.name = target).status;  
             }
