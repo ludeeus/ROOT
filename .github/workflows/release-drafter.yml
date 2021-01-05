@@ -38,6 +38,9 @@ jobs:
 
       - run: printenv
 
+      - uses: ./waitforjob
+        with:
+          job: job2
 
       - uses: actions/github-script@v3
         name: Wait for "job2" in "Workflow 2"
