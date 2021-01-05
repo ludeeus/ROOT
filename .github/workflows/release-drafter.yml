@@ -47,7 +47,7 @@ jobs:
             let conclusion;
             let status;
             while (status !== "completed") {
-              setTimeout(() => { 
+              setTimeout(async () => { 
                 const res = await github.request('GET /repos/{owner}/{repo}/commits/{ref}/check-runs', {
                   owner: 'ludeeus',
                   repo: 'ROOT',
