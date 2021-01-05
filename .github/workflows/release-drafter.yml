@@ -22,6 +22,6 @@ jobs:
             const res = await octokit.request('GET /repos/{owner}/{repo}/commits/{ref}/status', {
               owner: 'octocat',
               repo: 'hello-world',
-              ref: '${{GITHUB_SHA}}'
+              ref: '${{github.sha}}'
             })
             console.log(res)
