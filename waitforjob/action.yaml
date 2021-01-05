@@ -7,7 +7,7 @@ inputs:
   timeout:
     description: 'number of milliseconds to wait between retries'
     required: false
-    default: 5000
+    default: 5
   retry-limit:
     description: 'number of maximum retries'
     required: false
@@ -33,10 +33,6 @@ runs:
           echo $status
           echo $retries
           echo ${{inputs.retry-limit}}
-
-          if [ "$status" == "completed" ] || [ $retries -gt ${{inputs.retry-limit}} ]; then
-            break
-          fi
 
           sleep ${{inputs.timeout}}
           retries=$(( $retries + 1 ))
