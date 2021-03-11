@@ -30,7 +30,7 @@ jobs:
   deploy-mqtt:
     runs-on: ubuntu-latest
     needs: changes
-    if: ${{ needs.changes.outputs.all == 'true' || needs.changes.outputs.${{matrix.app}} == 'true'}}
+    if: ${{ needs.changes.outputs.all == 'true' || needs.changes.outputs[matrix.app] == 'true'}}
     strategy:
       matrix:
         app: ['mqtt']
