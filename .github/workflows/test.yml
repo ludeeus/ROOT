@@ -30,6 +30,6 @@ jobs:
   deploy-mqtt:
     runs-on: ubuntu-latest
     needs: changes
-    if: ${{ needs.changes.outputs.all == 'true' }} || ${{ needs.changes.outputs.mqtt == 'true' }}
+    if: ${{ needs.changes.outputs.all == 'true' || needs.changes.outputs.mqtt == 'true'}}
     steps:
       - uses: actions/checkout@v2
