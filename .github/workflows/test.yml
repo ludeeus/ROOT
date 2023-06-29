@@ -18,8 +18,9 @@ jobs:
       - name: Check labels
         run: |
           for i in bug test; do
-             if [[ ${{ contains(github.event.issue.labels.*.name, '$i') }} ]]; then
-                exit 0
-             fi
+            echo "Checking for $i label"
+            if [[ ${{ contains(github.event.issue.labels.*.name, '$i') }} == "true" ]]; then
+               exit 0
+            fi
           done
           exit 1
