@@ -17,9 +17,9 @@ jobs:
     steps:
       - name: Check labels
         env:
-          EXPECTED_LABELS: bug test
+          EXPECTED_LABELS: bug,test
         run: |
-          for i in "$EXPECTED_LABELS"; do
+          for i in ${EXPECTED_LABELS//,/}; do
             echo "Checking for $i label"
             if [[ "${{ contains(github.event.issue.labels.*.name, '$i') }}" == "true" ]]; then
                exit 0
