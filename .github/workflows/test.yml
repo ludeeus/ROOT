@@ -13,4 +13,4 @@ jobs:
     steps:
       - name: Check labels
         run: |
-          echo ${{ github.event.pull_request.labels[*].name }}
+          echo ${{ github.event.pull_request.labels[*].name.some(entry => ['bug'].contains(entry)) }}
