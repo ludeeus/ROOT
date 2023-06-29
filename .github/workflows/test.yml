@@ -5,6 +5,10 @@ on:
   pull_request:
     branches:
       - master
+    types:
+      - labeled
+      - unlabeled
+      - synchronize
 
 jobs:
   labels:
