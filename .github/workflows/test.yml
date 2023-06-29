@@ -13,4 +13,9 @@ jobs:
     steps:
       - name: Check labels
         run: |
-          echo ${{ github.event.pull_request.labels[*].name.some(entry => ['bug'].contains(entry)) }}
+          for i in bug test; do
+             if [[ ${{ contains(github.event.issue.labels.*.name, '$i') }} ]]; then
+                exit 0
+             fi
+          done
+          exit 1
