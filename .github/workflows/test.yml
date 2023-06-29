@@ -19,9 +19,10 @@ jobs:
         env:
           EXPECTED_LABELS: bug,test
         run: |
-          for i in ${EXPECTED_LABELS//,/ }; do
-            echo "Checking for $i label"
-            if [[ "${{ contains(github.event.issue.labels.*.name, '$i') }}" == "true" ]]; then
+          labels=$(jq -r '.pull_request.labels[] | .name' ${{github.event_path }})
+          for label in ${EXPECTED_LABELS//,/ }; do
+            echo "Checking for '$i' label"
+            if [[ $label == *"$labels"* ]]; then
                exit 0
             fi
           done
