@@ -20,7 +20,7 @@ jobs:
             some_val: "sdassa"
     steps:
       - name: Get name
-        run: ${{ matrix.handler.name }}
+        run: echo ${{ matrix.handler.name }}
       - name: Get some_val
         if: ${{ github.event_name == 'pull_request' && matrix.handler.some_val }}
-        run: ${{ matrix.handler.some_val }}
+        run: echo ${{ matrix.handler.some_val }}
