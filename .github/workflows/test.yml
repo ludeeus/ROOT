@@ -6,24 +6,21 @@ on:
     branches:
       - master
     types:
-      - labeled
-      - unlabeled
       - synchronize
 
 jobs:
   labels:
     name: Check labels
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        handler:
+          - name: "example"
+          - name: "other"
+            some_val: "sdassa"
     steps:
-      - name: Check labels
-        env:
-          EXPECTED_LABELS: bug,test
-        run: |
-          labels=$(jq -r '.pull_request.labels[] | .name' ${{github.event_path }})
-          for label in ${EXPECTED_LABELS//,/ }; do
-            echo "Checking for '$i' label"
-            if [[ $label == *"$labels"* ]]; then
-               exit 0
-            fi
-          done
-          exit 1
+      - name: Get name
+        run: ${{ matrix.handler.name }}
+      - name: Get some_val
+        if: ${{ github.event_name == 'pull_request' && matrix.handler.some_val }}
+        run: ${{ matrix.handler.some_val }}
