@@ -2,38 +2,27 @@
 name: Deploy
 
 on:
-  push:
+  pull_request:
     branches:
       - master
+    types:
+      - synchronize
 
 jobs:
-  changes:
-    name: 'Check for worker changes'
+  labels:
+    name: Check labels
     runs-on: ubuntu-latest
-    outputs:
-      all: ${{ steps.filter.outputs.all }}
-      mqtt: ${{ steps.filter.outputs.mqtt }}
-
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: dorny/paths-filter@v2.4.2
-        id: filter
-        with:
-          filters: |
-            all:
-              - '.github/workflows/**'
-            mqtt:
-              - 'mqtt/**'
-
-
-  deploy-mqtt:
-    runs-on: ubuntu-latest
-    needs: changes
-    if: ${{ matrix.app.build }}
     strategy:
       matrix:
-        app: 
-          - {"name": "mqtt", "build": "${{ needs.changes.outputs.all == 'true' || needs.changes.outputs.mqtt == 'true'}}"}
+        handler:
+          - name: "example"
+          - name: "other"
+            some_val: "sdassa"
     steps:
-      - uses: actions/checkout@v2
+      - name: Get name
+        run: echo ${{ matrix.handler.name }}
+      - name: Get ref
+        run: echo ${{ github.event_name == 'release' && github.event.release.tag_name || github.ref }}
+      - name: Get some_val
+        if: ${{ github.event_name == 'pull_request' && matrix.handler.some_val }}
+        run: echo ${{ matrix.handler.some_val }}
