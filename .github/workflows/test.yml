@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Get name
         run: echo ${{ matrix.handler.name }}
+      - name: Get ref
+        run: echo ${{ github.event_name == 'release' && github.event.release.tag_name || github.ref }}
       - name: Get some_val
         if: ${{ github.event_name == 'pull_request' && matrix.handler.some_val }}
         run: echo ${{ matrix.handler.some_val }}
