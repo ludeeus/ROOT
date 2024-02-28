@@ -1,0 +1,42 @@
+name: "test_artifact_permissions"
+
+on:
+  pull_request:
+    branches:
+      - master
+
+permissions: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate files to upload
+        run: |
+          mkdir dist
+          echo "test1" > testfile1.txt
+          echo "test2" > testfile2.txt
+
+      - name: "Upload dists"
+        uses: "actions/upload-artifact@v4"
+        with:
+          name: "dist"
+          path: "dist/"
+          if-no-files-found: error
+          retention-days: 5
+
+  download:
+    name: Download artifacts
+    runs-on: ubuntu-latest
+    needs: "build"
+    steps:
+      - name: "Download dists"
+        uses: "actions/download-artifact@v4"
+        with:
+          name: "dist"
+          path: "dist/"
+
+      - name: List
+        run: ls -la dist
