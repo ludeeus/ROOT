@@ -10,6 +10,8 @@ permissions: {}
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.output.outputs.environment }}
     steps:
       - uses: actions/checkout@v4
 
@@ -33,6 +35,7 @@ jobs:
 
       - name: Generate output
         shell: python
+        id: output
         run: |
           import json
           import os
@@ -40,7 +43,7 @@ jobs:
           with open("data/data.json", "r") as fp:
               data = json.loads(fp.read())
 
-          environment = "approval" if data["count"] < 45 else "base"
+          environment = "approval" if data["count"] < 45 else ""
 
           with open(os.environ['GITHUB_OUTPUT'], "a") as fp:
               print(f'environment={environment}', file=fp)
