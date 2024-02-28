@@ -23,7 +23,7 @@ jobs:
 
           os.mkdir("data")
           with open("data/data.json", "w") as fp:
-              fp.write(json.dumps({"count": 44}))
+              fp.write(json.dumps({"count": 54}))
             
       - name: "Upload dists"
         uses: "actions/upload-artifact@v4"
