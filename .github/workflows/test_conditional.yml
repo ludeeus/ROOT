@@ -1,0 +1,62 @@
+name: "test_artifact_permissions"
+
+on:
+  pull_request:
+    branches:
+      - master
+
+permissions: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate file to upload
+        shell: python
+        run: |
+          import json
+          import os
+
+          os.mkdir("data")
+          with open("data/data.json", "w") as fp:
+              fp.write(json.dumps({"count": 44}))
+            
+      - name: "Upload dists"
+        uses: "actions/upload-artifact@v4"
+        with:
+          name: "data"
+          path: "data/"
+          if-no-files-found: error
+          retention-days: 5
+
+      - name: Generate output
+        shell: python
+        run: |
+          import json
+          import os
+
+          os.mkdir("data")
+          with open("data/data.json", "r") as fp:
+              data = json.loads(fp.read())
+
+          environment = "approval" if data["count"] < 45 else "base"
+
+          with open(os.environ['GITHUB_OUTPUT'], "a") as fp:
+              print(f'environment={environment}', file=fp)
+
+  download:
+    name: Download artifacts
+    runs-on: ubuntu-latest
+    needs: "build"
+    environment: ${{needs.build.outputs.environment}}
+    steps:
+      - name: "Download data"
+        uses: "actions/download-artifact@v4"
+        with:
+          name: "data"
+          path: "data/"
+
+      - name: List
+        run: ls -la dist
