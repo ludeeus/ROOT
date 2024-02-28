@@ -1,4 +1,4 @@
-name: "test_artifact_permissions"
+name: "test_conditional"
 
 on:
   pull_request:
@@ -37,7 +37,6 @@ jobs:
           import json
           import os
 
-          os.mkdir("data")
           with open("data/data.json", "r") as fp:
               data = json.loads(fp.read())
 
