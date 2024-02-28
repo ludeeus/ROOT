@@ -16,8 +16,8 @@ jobs:
       - name: Generate files to upload
         run: |
           mkdir dist
-          echo "test1" > testfile1.txt
-          echo "test2" > testfile2.txt
+          echo "test1" > dist/testfile1.txt
+          echo "test2" > dist/testfile2.txt
 
       - name: "Upload dists"
         uses: "actions/upload-artifact@v4"
