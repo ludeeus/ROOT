@@ -1,0 +1,19 @@
+name: "use-details"
+
+on:
+  pull_request:
+    branches:
+      - master
+
+permissions: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: .github/workflows/.shared/details.yml
+        id: details
+      - name: Generate file to upload
+        run: echo "${{steps.details.outputs.categories}}"
+        
