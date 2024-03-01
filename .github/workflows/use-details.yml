@@ -12,6 +12,8 @@ jobs:
     if: ${{ github.repository == 'ludeeus/ROOT' }}
     runs: ubuntu-latest
     name: Preflight
-    steps: []
+    steps:
+      - name: noop
+        run: ""
 
         
