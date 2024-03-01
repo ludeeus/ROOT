@@ -7,15 +7,20 @@ on:
 
 permissions: {}
 
-defaults:
-  runs-on: ubuntu-latest
-  needs: []
 
 jobs:
   preflight:
     if: ${{ github.repository == 'ludeeus/ROOT' }}
+    runs-on: ubuntu-latest
     name: Preflight
     steps:
       - name: Validation preflight
-        run: echo "Validation" >> $GITHUB_STEP_SUMMARY
+        env:
+          ACTOR: ${{ github.actor }}
+          REF: ${{ github.ref }}
+          event_name: ${{ github.ref }}
+        run: |
+          echo "**Start:**  $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "**Actor:**  $ACTOR" >> $GITHUB_STEP_SUMMARY
+          echo "**Actor:**  $event_name" >> $GITHUB_STEP_SUMMARY
 
