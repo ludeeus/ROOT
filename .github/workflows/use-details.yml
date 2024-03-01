@@ -9,10 +9,9 @@ permissions: {}
 
 jobs:
   preflight:
-    if: ${{ github.repository == 'ludeeus/ROOT' }}
+    if: ${{ github.repository == 'ludeeus/ROOTs' }}
     runs-on: ubuntu-latest
     name: Preflight
-    environment: preflight-validate
     steps:
       - name: Validation preflight
         run: echo "Validation" >> $GITHUB_STEP_SUMMARY
@@ -22,7 +21,6 @@ jobs:
       - "preflight"
     runs-on: ubuntu-latest
     name: Build
-    environment: preflight-validate
     steps:
       - name: Validation preflight
         run: echo "Build" >> $GITHUB_STEP_SUMMARY
