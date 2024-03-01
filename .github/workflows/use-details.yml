@@ -8,12 +8,11 @@ on:
 permissions: {}
 
 jobs:
- preflight:
+  preflight:
     if: ${{ github.repository == 'ludeeus/ROOT' }}
     runs: ubuntu-latest
     name: Preflight
-    steps:
-      - uses: actions/checkout@v4
+    steps: []
   build:
     needs: preflight
     runs-on: ubuntu-latest
