@@ -8,11 +8,17 @@ on:
 permissions: {}
 
 jobs:
+ preflight:
+    if: ${{ github.repository == 'ludeeus/ROOT' }}
+    runs: ubuntu-latest
+    name: Preflight
+    steps: []
   build:
+    needs: preflight
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/workflows/shared-details.yml
+      - uses: ludeeus/ROOT/.github/workflows/shared-details.yml@${{github.ref}}
         id: details
       - name: Generate file to upload
         run: echo "${{steps.details.outputs.categories}}"
