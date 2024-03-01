@@ -17,10 +17,15 @@ jobs:
       - name: Validation preflight
         env:
           ACTOR: ${{ github.actor }}
+          EVENT_NAME: ${{ github.event_name }}
+          HEAD_REF: ${{ github.head_ref }}
           REF: ${{ github.ref }}
-          event_name: ${{ github.ref }}
+          SHA: ${{ github.sha }}
         run: |
-          echo "**Start:**  $(date)" >> $GITHUB_STEP_SUMMARY
-          echo "**Actor:**  $ACTOR" >> $GITHUB_STEP_SUMMARY
-          echo "**Actor:**  $event_name" >> $GITHUB_STEP_SUMMARY
+          echo "**Start:**     $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "**Actor:**     $ACTOR" >> $GITHUB_STEP_SUMMARY
+          echo "**Event:**     $EVENT_NAME" >> $GITHUB_STEP_SUMMARY
+          echo "**Head ref:**  $EVENT_NAME" >> $GITHUB_STEP_SUMMARY
+          echo "**Ref:**       $REF" >> $GITHUB_STEP_SUMMARY
+          echo "**SHA:**       $SHA" >> $GITHUB_STEP_SUMMARY
 
