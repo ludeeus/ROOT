@@ -10,7 +10,7 @@ permissions: {}
 jobs:
   preflight:
     if: ${{ github.repository == 'ludeeus/ROOT' }}
-    runs: ubuntu-latest
+    runs-on: ubuntu-latest
     name: Preflight
     steps:
       - name: noop
