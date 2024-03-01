@@ -1,0 +1,39 @@
+name: "use-details"
+
+on:
+  pull_request:
+    branches:
+      - master
+
+permissions: {}
+
+
+jobs:
+  preflight:
+    if: ${{ github.repository == 'ludeeus/ROOT' }}
+    runs-on: ubuntu-latest
+    name: Preflight
+    strategy:
+      matrix:
+        entry:
+          - test1
+          - test2
+    steps:
+      - name: Create JSON
+        run: |
+          echo '{"some": "key", "another": "value"}' | jq . > data.json
+          
+      - name: Run docker
+        run: |
+          docker run --name hello_world \
+            hello-world:latest
+    
+      - name: Summary
+        run: |
+          echo "<details><summary>${{matrix.entry}}</summary>" >> $GITHUB_STEP_SUMMARY
+          docker logs hello_world >> $GITHUB_STEP_SUMMARY
+          echo "</details>" >> $GITHUB_STEP_SUMMARY
+
+          cat data.json >> $GITHUB_STEP_SUMMARY
+          
+
