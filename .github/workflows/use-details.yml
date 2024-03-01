@@ -7,20 +7,15 @@ on:
 
 permissions: {}
 
+defaults:
+  runs-on: ubuntu-latest
+  needs: []
+
 jobs:
   preflight:
-    if: ${{ github.repository == 'ludeeus/ROOTs' }}
-    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'ludeeus/ROOT' }}
     name: Preflight
     steps:
       - name: Validation preflight
         run: echo "Validation" >> $GITHUB_STEP_SUMMARY
 
-  build:
-    needs:
-      - "preflight"
-    runs-on: ubuntu-latest
-    name: Build
-    steps:
-      - name: Validation preflight
-        run: echo "Build" >> $GITHUB_STEP_SUMMARY
