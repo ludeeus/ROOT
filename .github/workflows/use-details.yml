@@ -14,9 +14,13 @@ jobs:
     runs-on: ubuntu-latest
     name: Preflight
     steps:
+      - name: Run docker
+        run: |
+          docker run --name hello_world \
+            hello-world:latest
       - name: Summary
         run: |
-          echo "<details><summary>${{matrix.entry.repository}}</summary>" >> $GITHUB_STEP_SUMMARY
-          docker logs hacs_action_local >> $GITHUB_STEP_SUMMARY
+          echo "<details><summary>${{github.repository}}</summary>" >> $GITHUB_STEP_SUMMARY
+          docker logs hello_world >> $GITHUB_STEP_SUMMARY
           echo "</details>" >> $GITHUB_STEP_SUMMARY
 
