@@ -14,13 +14,25 @@ jobs:
     runs-on: ubuntu-latest
     name: Preflight
     steps:
+      - name: Create JSON
+        run: |
+          echo '{"some": "key", "another": "value"}' > data.json
+          
       - name: Run docker
         run: |
           docker run --name hello_world \
             hello-world:latest
+    
       - name: Summary
         run: |
           echo "<details><summary>${{github.repository}}</summary>" >> $GITHUB_STEP_SUMMARY
           docker logs hello_world >> $GITHUB_STEP_SUMMARY
           echo "</details>" >> $GITHUB_STEP_SUMMARY
+
+          echo "<details><summary>jsonsample</summary>" >> $GITHUB_STEP_SUMMARY
+          echo "```json" >> $GITHUB_STEP_SUMMARY
+          jq . data.json >> $GITHUB_STEP_SUMMARY
+          echo "```json" >> $GITHUB_STEP_SUMMARY
+          echo "</details>" >> $GITHUB_STEP_SUMMARY
+          
 
