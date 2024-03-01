@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Create JSON
         run: |
-          echo '{"some": "key", "another": "value"}' | jq . > data.json
+          echo '{"some": "key", "another": "value"}' | jq . > data.json
           
       - name: Run docker
         run: |
@@ -34,6 +34,6 @@ jobs:
           docker logs hello_world >> $GITHUB_STEP_SUMMARY
           echo "</details>" >> $GITHUB_STEP_SUMMARY
 
-          jq . data.json >> $GITHUB_STEP_SUMMARY
+          cat data.json >> $GITHUB_STEP_SUMMARY
           
 
