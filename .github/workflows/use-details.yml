@@ -14,7 +14,15 @@ jobs:
     name: Preflight
     environment: preflight-validate
     steps:
-      - name: noop
-        run: ""
+      - name: Validation preflight
+        run: echo "Validation" >> $GITHUB_STEP_SUMMARY
 
-        
+  build:
+    needs:
+      - "preflight"
+    runs-on: ubuntu-latest
+    name: Build
+    environment: preflight-validate
+    steps:
+      - name: Validation preflight
+        run: echo "Build" >> $GITHUB_STEP_SUMMARY
