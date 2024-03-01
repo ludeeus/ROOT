@@ -34,6 +34,6 @@ jobs:
           docker logs hello_world >> $GITHUB_STEP_SUMMARY
           echo "</details>" >> $GITHUB_STEP_SUMMARY
 
-          jq . data.json >> $GITHUB_STEP_SUMMARY
+          jq . -r data.json >> $GITHUB_STEP_SUMMARY
           
 
