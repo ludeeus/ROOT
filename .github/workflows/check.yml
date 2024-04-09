@@ -1,0 +1,24 @@
+name: Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    name: Check
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4.1.1
+
+    - name: Check
+      run: python3 -m create_error
+
+    - name: Hi
+      run: echo "hi"
