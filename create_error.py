@@ -7,6 +7,8 @@ async def do_stuff():
       print(f"::error::{err}")
       sys.exit(1)
 
+  raise Exception("BOOM from exception")
+
   print_error_and_exit("BOOM!")
 
 
