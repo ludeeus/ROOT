@@ -1,0 +1,31 @@
+
+name: Deploy
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  create:
+    name: Create
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        category:
+          - apple
+          - orange
+          - banana
+    steps:
+      - run: mkdir -p outputdata/${{matrix.category}}
+      - run: echo "content" > outputdata/${{matrix.category}}/sample.txt
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4.3.3
+        with:
+          name: ${{ matrix.category }}
+          path: |
+            outputdata/${{ matrix.category }}
+          if-no-files-found: error
+          retention-days: 7
+
