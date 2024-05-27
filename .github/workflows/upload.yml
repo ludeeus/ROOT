@@ -29,3 +29,13 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+  validate:
+    name: Create
+    runs-on: ubuntu-latest
+    needs: create
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4.3.3
+        with:
+          path: outputdata
+      - run: ls -la outputdata
