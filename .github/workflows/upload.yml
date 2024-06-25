@@ -20,7 +20,7 @@ jobs:
     steps:
       - run: mkdir -p outputdata/${{matrix.category}}
       - run: |
-          echo "{'changed_pct': 30}" > outputdata/${{matrix.category}}/summary.json
+          echo '{"changed_pct": 30}' > outputdata/${{matrix.category}}/summary.json
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4.3.3
