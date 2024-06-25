@@ -72,5 +72,5 @@ jobs:
         category: ${{ fromJson(needs.validate.outputs.categories) }}
     steps:
       - run: |
-        echo "${{ fromJson(needs.validate.outputs.summaries)[matrix.category] }}"
+          echo "${{ fromJson(needs.validate.outputs.summaries)[matrix.category] }}"
       
