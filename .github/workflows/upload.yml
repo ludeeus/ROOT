@@ -51,6 +51,7 @@ jobs:
             const subDirectories = fs.readdirSync("outputdata", { withFileTypes: true })
                 .filter(entry => entry.isDirectory())
                 .map(entry => entry.name)
+
             for (const directory of subDirectories) {
-              console.log(file)
+              console.log(directory)
             }
