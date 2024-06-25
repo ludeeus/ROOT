@@ -46,8 +46,11 @@ jobs:
         id: summary
         with:
           script: |
+            const fs = require('fs');
             const combined = {};
-            const globber = await glob.create('outputdata/**', { withFileTypes: true })
-            for await (const file of globber.globGenerator()) {
+            const subDirectories = readdirSync("outputdata", { withFileTypes: true })
+                .filter(dirent => dirent.isDirectory())
+                .map(dirent => dirent.name)
+            for (const directory of subDirectories) {
               console.log(file)
             }
