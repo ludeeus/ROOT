@@ -56,7 +56,7 @@ jobs:
                 .map(entry => entry.name)
 
             for (const directory of subDirectories) {
-              summaries[category] = JSON.parse(fs.readFileSync(`outputdata/${directory}/summary.json`));
+              summaries[directory] = JSON.parse(fs.readFileSync(`outputdata/${directory}/summary.json`));
             }
 
             core.setOutput("categories", JSON.stringify(Object.keys(summaries)))
