@@ -19,15 +19,17 @@ jobs:
           - banana
     steps:
       - run: mkdir -p outputdata/${{matrix.category}}
-      - run: echo "content" > outputdata/${{matrix.category}}/sample.txt
+      - run: |
+          echo "{'changed_pct': 30}" > outputdata/${{matrix.category}}/summary.json
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4.3.3
         with:
           name: ${{ matrix.category }}
           path: |
             outputdata/${{ matrix.category }}
-          if-no-files-found: error
-          retention-days: 7
+          if-no-files-found: warn
+          retention-days: 3
 
   validate:
     name: Validate
@@ -38,4 +40,14 @@ jobs:
         uses: actions/download-artifact@v4.1.7
         with:
           path: outputdata
-      - run: ls -la outputdata
+      
+      - name: Combined summary
+        uses: actions/github-script@v7.0.1
+        id: summary
+        with:
+          script: |
+            const combined = {};
+            const globber = await glob.create('outputdata/*')
+            for await (const file of globber.globGenerator()) {
+              console.log(file)
+            }
