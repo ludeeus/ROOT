@@ -67,10 +67,11 @@ jobs:
     name: Use
     runs-on: ubuntu-latest
     needs: validate
+    if: ${{fromJson(needs.validate.outputs.summaries)[matrix.category].changed_pct > 25}}
     strategy:
       matrix:
         category: ${{ fromJson(needs.validate.outputs.categories) }}
     steps:
       - run: |
-          echo "${{ fromJson(needs.validate.outputs.summaries)[matrix.category] }}"
+          echo "${{ toJson(fromJson(needs.validate.outputs.summaries)[matrix.category]) }}"
       
