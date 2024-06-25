@@ -49,5 +49,5 @@ jobs:
             const combined = {};
             const globber = await glob.create('outputdata/**', { withFileTypes: true })
             for await (const file of globber.globGenerator()) {
-              console.log(file, file.isDirectory())
+              console.log(file)
             }
