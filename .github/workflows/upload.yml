@@ -53,5 +53,7 @@ jobs:
                 .map(entry => entry.name)
 
             for (const directory of subDirectories) {
-              console.log(directory)
+              combined[directory] = JSON.parse(readFileSync(`outputdata/${directory}/summary.json`))
             }
+
+            console.log(JSON.stringify(combined))
