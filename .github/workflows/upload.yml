@@ -10,6 +10,8 @@ jobs:
   create:
     name: Create
     runs-on: ubuntu-latest
+    outputs:
+      summary: ${{ steps.summary.outputs.summary }}
     strategy:
       fail-fast: false
       matrix:
@@ -18,24 +20,20 @@ jobs:
           - orange
           - banana
     steps:
-      - run: mkdir -p outputdata/${{matrix.category}}
-      - run: echo "content" > outputdata/${{matrix.category}}/sample.txt
-      #- name: Upload artifacts
-      #  uses: actions/upload-artifact@v4.3.3
-      #  with:
-      #    name: ${{ matrix.category }}
-      #    path: |
-      #      outputdata/${{ matrix.category }}
-      #    if-no-files-found: error
-      #    retention-days: 7
+      - id: summary
+        run: |
+          echo "summary={"changed_pct": 30}" >> $GITHUB_OUTPUT
 
   validate:
     name: Create
     runs-on: ubuntu-latest
     needs: create
+    strategy:
+      fail-fast: false
+      matrix:
+        category:
+          - apple
+          - orange
+          - banana
     steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4.1.7
-        with:
-          path: outputdata
-      - run: ls -la outputdata
+      - run: echo "${{ fromJson(needs.create.outputs.summary) }}"
