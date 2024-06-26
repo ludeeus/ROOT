@@ -80,7 +80,7 @@ jobs:
     name: "[[${{ matrix.category }}]]Use (${{ needs.validate.outputs.environment }})"
     runs-on: ubuntu-latest
     needs: validate 
-    environment: "${{ fromJson(needs.validate.outputs.categories)[${{matrix.category}}] }}"
+    environment: "${{ fromJson(needs.validate.outputs.categories)[matrix.category] }}"
     strategy:
       matrix:
         category: ${{ fromJson(needs.validate.outputs.categories) }}
